@@ -812,9 +812,9 @@
     // > toDayMonth(64);
     // 'Most recent 5 year(s) 4 month(s) not available'
 
-    const toDayMonth = mns => {
-	const years = Math.floor(mns / 12);
-	const months = mns % 12;
+    var toDayMonth = function (mns) {
+	var years = Math.floor(mns / 12);
+	var months = mns % 12;
 	if ((years !== 0) && (months !== 0)) {
 	    return `Most recent ${years} year(s) ${months} month(s) not available`
 	} else if (years !== 0) {
@@ -951,29 +951,29 @@
 
 	// MT
 
-	const openURL = self.data('openurl');
+	var openURL = self.data('openurl');
 	
-	const titleNA = `<div class="locpanel-heading online">
-		     <h2>
-                     Online
-                     </h2>
-		     </div>
-		     <div class="e-links holdings-unit">
-		     <div class="alert alert-no-match">Not available.
-		     </div>
-		     </div>`;
+	var titleNA = `<div class="locpanel-heading online">
+		       <h2>
+                       Online
+                       </h2>
+		       </div>
+		       <div class="e-links holdings-unit">
+		       <div class="alert alert-no-match">Not available.
+		       </div>
+		       </div>`;
 	
-	const titleA = `<div class="locpanel-heading online">
-		    <h2>
-		    Online
-		    </h2></div>
-		    <div class="e-links holdings-unit"></div>`;
+	var titleA = `<div class="locpanel-heading online">
+		      <h2>
+		      Online
+		      </h2></div>
+		      <div class="e-links holdings-unit"></div>`;
 
 	// MT: note: this originally had an additional </div> at the end of it that I erased
 	// might wanna put it back if it accidentally broke something
-	const availableDiv = `<div class="alert alert-success-match" role="alert">
-                          Available
-                          </div>`;
+	var availableDiv = `<div class="alert alert-success-match" role="alert">
+                            Available
+                            </div>`;
 
 
     /* only display holdings for things that have an SFX number or ISSN, like
@@ -989,18 +989,18 @@
 	var url = 'https://www.lib.uchicago.edu/cgi-bin/holdings?code=48976&function=holdings&callback=?';
     }
       // raw URL
-      const unescaped_openurl = document.URL;
+      var unescaped_openurl = document.URL;
       // URL escaped in a manner suitable for the RESTful service
-      const openurl = encodeURIComponent(unescaped_openurl);
+      var openurl = encodeURIComponent(unescaped_openurl);
       $.ajax({
       cache: true,
       dataType: 'json',
       url: url,
       success: function(data) {
 	  // raw URL
-	  const unescaped_openurl = document.URL;
+	  var unescaped_openurl = document.URL;
 	  // URL escaped in a manner suitable for the RESTful service
-	  const openurl = encodeURIComponent(unescaped_openurl);
+	  var openurl = encodeURIComponent(unescaped_openurl);
           // "Online" header.
           self.append(titleA);
 
@@ -1058,27 +1058,29 @@
           }
         } else {
 	    // display 'Available' div with icon for Open Access holdings
-	    const isAvailable = () =>
+	    var isAvailable = function () {
 		  self.find('.e-links')
 		  .append(
 		      '<div class="alert alert-success-match" role="alert">Available</div></div>'
 		  );
+	    };
 	    // display 'Not Available' div with icon
-	    const notAvailable = () =>
+	    var notAvailable = function () {
 		  self.find('.e-links')
 		  .append(
 		      '<div class="alert alert-no-match" role="alert">Not available.</div>'
 		  );
+	    };
 	    // display entry for a single open access source
-	    const openAccessHTML = function (link, provider, providerLink) {
-		const divs = `<div class="row"><div class="result-title"><a class="holdingslink" 
-			      href="${link}" data-ga-category="online" data-ga-action="click" 
-			      data-ga-label="Available as Open Access">
-			      Available as Open Access <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
-			      <br><small>Located via <a href="${providerLink}">${provider}</a> and
-                              <a href="https://openaccessbutton.org/">Open Access Button</a></small>
-			      </div>
-		              </div>`;
+	    var openAccessHTML = function (link, provider, providerLink) {
+		var divs = `<div class="row"><div class="result-title"><a class="holdingslink" 
+			    href="${link}" data-ga-category="online" data-ga-action="click" 
+			    data-ga-label="Available as Open Access">
+			    Available as Open Access <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+			    <br><small>Located via <a href="${providerLink}">${provider}</a> and
+                            <a href="https://openaccessbutton.org/">Open Access Button</a></small>
+			    </div>
+		            </div>`;
 		return divs;
 	    };
 
@@ -1089,7 +1091,7 @@
 		`https://lib.uchicago.edu/cgi-bin/openaccess?code=6685&function=openaccess&openurl=${openurl}&callback=?`,
 		success: function(data) {
 		    isAvailable();
-		    const displayHoldings = function (lst) {
+		    var displayHoldings = function (lst) {
 			for (let i = 0; { length } = lst, i < length; i++) {
 			    let holding = lst[i];
 			    self.find('.e-links').append(openAccessHTML(holding['url'],
