@@ -1,3 +1,7 @@
 *
 !.gitignore
 !sfxmenu.tmpl
+!package-lock.json
+!package.json
+!thingy.js
+!.babelrc
